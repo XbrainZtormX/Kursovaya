@@ -1,0 +1,16 @@
+{
+  "author": "",
+  "name": "Kursovaya",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/corpix/Kursovaya.git"
+  },
+  "engines": {
+    "node": ">0.4.1"
+  },
+  "dependencies": {
+    "xml2js": "*"
+  },
+  "devDependencies": {}
+}
