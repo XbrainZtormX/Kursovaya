@@ -5,12 +5,68 @@ var xml2js = require('xml2js')
 
 var parser = new xml2js.Parser();
 
+var precision = 0.0005;
+
 // files
 var graphml = readFile('graphml.xml')
   , map = readFile('map.osm');
 
-async.map([ graphml, map ], parser.parseString, function(err, result){
+async.map([ graphml, map ], parser.parseString, function(err, data){
   if(err)
     throw new Error(err);
-  console.log(result[1])
+
+  var table = {};
+  // graphml
+  (function(){
+    var hash = {};
+    data[0].graph.node.forEach(function(node){
+      var id = node['@'].id
+        , result = {};
+
+      node.data.forEach(function(data){
+        result[data['@'].key.toLowerCase()] = parseFloat(data['#'].replace(',', '.'));
+      });
+
+      hash[id] = result;
+    });
+
+    table['graphml'] = hash;
+  })();
+
+  // map(osm)
+  (function(){
+    var hash = {};
+    data[1].node.forEach(function(node){
+      node = node['@'];
+      hash[node.id] = { y: parseFloat(node.lat), x: parseFloat(node.lon) };
+    });
+
+    table['map'] = hash;
+  })();
+
+  var Result = [];
+  (function(){
+    for(var i in table['graphml']){
+      var g = table['graphml'][i];
+      for(var j in table['map']){
+        var m = table['map'][j];
+        if(Math.sqrt( Math.pow(g.x - m.x, 2) + Math.pow(g.y - m.y, 2) ) < precision){
+          var result = {
+            graphml: {},
+            map: {},
+            diff: {
+              x: Math.abs(g.x - m.x),
+              y: Math.abs(g.y - m.y)
+            }
+          }
+
+          result.graphml[i] = g;
+          result.map[j] = m;
+          Result.push(result);
+        }
+      }
+    }
+  })();
+
+  console.log(Result)
 });
