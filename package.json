@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "xml2js": "*",
-    "async": "*"
+    "async": "*",
+    "express": "*",
+    "connect": "*"
   },
   "devDependencies": {}
 }
