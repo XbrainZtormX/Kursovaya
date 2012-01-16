@@ -3,7 +3,7 @@ style
   .clear { clear: both; }
 
 form(action="/", method="post")
-  input(type="text", name="precision", value=precision, placeholder="Погрешность")
+  input(type="text", name="precision", value="#{precision}", placeholder="Погрешность")
   input(type="submit", value="Применить")
 
 - if(parse)
@@ -23,4 +23,3 @@ form(action="/", method="post")
       div &nbsp;
       div X - #{result.diff.x}
       div Y - #{result.diff.y}
-    
