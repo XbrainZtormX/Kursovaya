@@ -10,7 +10,8 @@
     "node": ">0.4.1"
   },
   "dependencies": {
-    "xml2js": "*"
+    "xml2js": "*",
+    "async": "*"
   },
   "devDependencies": {}
 }
