@@ -13,7 +13,8 @@
     "xml2js": "*",
     "async": "*",
     "express": "*",
-    "connect": "*"
+    "connect": "*",
+    "jade": "*"
   },
   "devDependencies": {}
 }
