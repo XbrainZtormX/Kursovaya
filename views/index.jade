@@ -1,0 +1,26 @@
+style
+  .tab { float: left; width: 300px; padding: 10px; border-bottom: 1px solid #ccc; }
+  .clear { clear: both; }
+
+form(action="/", method="post")
+  input(type="text", name="precision", value=precision, placeholder="Погрешность")
+  input(type="submit", value="Применить")
+
+- if(parse)
+  .tab GraphML
+  .tab OSM
+  .tab Diff
+  - each result in parse
+    .clear.tab
+      div #{result.graphml.id}
+      div X - #{result.graphml.x}
+      div Y - #{result.graphml.y}
+    .tab
+      div #{result.map.id}
+      div X - #{result.map.x}
+      div Y - #{result.map.y}
+    .tab
+      div &nbsp;
+      div X - #{result.diff.x}
+      div Y - #{result.diff.y}
+    
